@@ -111,6 +111,8 @@ class qBittorrent(object):
         
         # Batch Delete torrents
         def delete_torrents(self, torrent_hash_list):
+            url = self._host+'/api/v2/torrents/delete?' + urllib.parse.urlencode({'hashes':'|'.join(torrent_hash_list), 'deleteFiles': False})
+            self._logger.info(url)
             return self._session.post(self._host+'/api/v2/torrents/delete?' + urllib.parse.urlencode({'hashes':'|'.join(torrent_hash_list), 'deleteFiles': False}))        
 
         # Batch Delete torrents and data
