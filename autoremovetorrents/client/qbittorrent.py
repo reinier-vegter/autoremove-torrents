@@ -8,6 +8,7 @@ from ..torrentstatus import TorrentStatus
 from ..exception.loginfailure import LoginFailure
 from ..exception.connectionfailure import ConnectionFailure
 from ..exception.incompatibleapi import IncompatibleAPIVersion
+import urllib.parse
 
 class qBittorrent(object):
     # API Handler for v1
@@ -110,11 +111,11 @@ class qBittorrent(object):
         
         # Batch Delete torrents
         def delete_torrents(self, torrent_hash_list):
-            return self._session.post(self._host+'/api/v2/torrents/delete', params={'hashes':'|'.join(torrent_hash_list), 'deleteFiles': False})
-        
+            return self._session.post(self._host+'/api/v2/torrents/delete?' + urllib.parse.urlencode({'hashes':'|'.join(torrent_hash_list), 'deleteFiles': False}))        
+
         # Batch Delete torrents and data
         def delete_torrents_and_data(self, torrent_hash_list):
-            return self._session.post(self._host+'/api/v2/torrents/delete', params={'hashes':'|'.join(torrent_hash_list), 'deleteFiles': True})
+            return self._session.post(self._host+'/api/v2/torrents/delete?' + urllib.parse.urlencode({'hashes':'|'.join(torrent_hash_list), 'deleteFiles': True}))
 
     def __init__(self, host):
         # Logger
