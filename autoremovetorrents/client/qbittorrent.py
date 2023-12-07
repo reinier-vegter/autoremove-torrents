@@ -111,14 +111,13 @@ class qBittorrent(object):
         
         # Batch Delete torrents
         def delete_torrents(self, torrent_hash_list):
-            lg = logger.Logger.register(__name__)
-            url = self._host+'/api/v2/torrents/delete?' + urllib.parse.urlencode({'hashes':'|'.join(torrent_hash_list), 'deleteFiles': False})
-            lg.info(url)
-            return self._session.post(self._host+'/api/v2/torrents/delete?' + urllib.parse.urlencode({'hashes':'|'.join(torrent_hash_list), 'deleteFiles': False}))        
+            # url = self._host+'/api/v2/torrents/delete?' + urllib.parse.urlencode({'hashes':'|'.join(torrent_hash_list), 'deleteFiles': False})
+            # raise ConnectionFailure('URL: %s' % url)
+            return self._session.post(self._host+'/api/v2/torrents/delete', data={'hashes':'|'.join(torrent_hash_list), 'deleteFiles': False})        
 
         # Batch Delete torrents and data
         def delete_torrents_and_data(self, torrent_hash_list):
-            return self._session.post(self._host+'/api/v2/torrents/delete?' + urllib.parse.urlencode({'hashes':'|'.join(torrent_hash_list), 'deleteFiles': True}))
+            return self._session.post(self._host+'/api/v2/torrents/delete', data={'hashes':'|'.join(torrent_hash_list), 'deleteFiles': True})        
 
     def __init__(self, host):
         # Logger
