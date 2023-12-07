@@ -271,7 +271,7 @@ class qBittorrent(object):
         if request.status_code != 200:
             return ([], [{
                 'hash': torrent,
-                'reason': 'The server responses HTTP %d.' % request.status_code,
+                'reason': 'The server responses HTTP %d: {0}' % (request.status_code, request),
             } for torrent in torrent_hash_list])
         # Some of them may fail but we can't judge them,
         # So we consider all of them as successful.
